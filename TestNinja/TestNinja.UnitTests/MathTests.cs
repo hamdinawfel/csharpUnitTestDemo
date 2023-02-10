@@ -26,5 +26,25 @@ namespace TestNinja.UnitTests
             var result = _math.Max(a, b);
             Assert.Equal(expectedResult, result);
         }
+
+        [Fact]
+        public void GetOddNumbers_LimitGreaterThanZero_ReturnOddNumberUpToLimit()
+        {
+            var result = _math.GetOddNumbers(3);
+            var expectedResult = new int[] { 1, 3 };
+            Assert.NotEmpty(result);
+            Assert.Contains(result, x => x == 1);
+            Assert.Contains(result, x => x == 3);
+            Assert.Equal(expectedResult.Length, result.Count());
+           
+        }
+
+        [Fact]
+        public void GetOddNumbers_LimitEqualToZero_ReturnEmptyArray()
+        {
+            var result = _math.GetOddNumbers(0);
+            var expectedResult = new int[] { };
+            Assert.Equal(expectedResult, result);
+        }
     }
 }
