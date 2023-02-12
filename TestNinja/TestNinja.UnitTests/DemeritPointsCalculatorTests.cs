@@ -12,18 +12,23 @@ namespace TestNinja.UnitTests
         [Theory]
         [InlineData(-1)]
         [InlineData(301)]
-        public void CalculateDemeritPoints_WithWrongParametre_ThrowException(int speed)
+        public void CalculateDemeritPoints_OutOfRangeSpeed_ThrowException(int speed)
         {
             var demeritPointsCalculator = new DemeritPointsCalculator();
             Assert.Throws<ArgumentOutOfRangeException>(()=> demeritPointsCalculator.CalculateDemeritPoints(speed));
         }
 
-        [Fact]
-        public void CalculateDemeritPoints_SpeedLessToSpeedLimit_Return0()
+        [Theory]
+        [InlineData(0,0)]
+        [InlineData(65,0)]
+        [InlineData(64,0)]
+        [InlineData(70,1)]
+        [InlineData(75,2)]
+        public void CalculateDemeritPoints_WhenCallad_ReturnDemeritPonits(int speed, int experctedResult)
         {
             var demeritPointsCalculator = new DemeritPointsCalculator();
-            var result = demeritPointsCalculator.CalculateDemeritPoints(65);
-            Assert.Equal(0, result);
+            var result = demeritPointsCalculator.CalculateDemeritPoints(speed);
+            Assert.Equal(experctedResult, result);
         }
 
         [Fact]
